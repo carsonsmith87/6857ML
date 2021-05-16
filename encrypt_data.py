@@ -19,7 +19,7 @@ def get_data(enc_class = None):
                 if line_count == 0:
                     col_name = row[0]
                     line_count += 1
-                elif line_count < NUM_DATA:
+                elif line_count <= NUM_DATA:
                     raw_data = col_name + row[0]
                     if enc_class == None:
                         data.append(raw_data)

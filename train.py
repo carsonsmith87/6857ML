@@ -41,24 +41,26 @@ trainDataClean = []
 
 dataPassword = pd.read_csv("data/Passwords.csv").sample(n = 500)
 
-trainDataPassword = list(dataPassword["Password"])
+trainDataPassword = list(dataPassword["PASSWORD"])
 for x in range(len(trainDataPassword)):
     trainDataPassword[x] = "PASSWORD" + trainDataPassword[x]
 
 dataUsername = pd.read_csv("data/Usernames.csv").sample(n = 500)
 
-trainDataUsername = list(dataUsername["username"])
+trainDataUsername = list(dataUsername["USERNAME"])
 for x in range(len(trainDataUsername)):
     trainDataUsername[x] = "USERNAME" + trainDataUsername[x]
 
 
 dataProduct = pd.read_csv("data/Products.csv").sample(n = 500)
-trainDataProduct = list(dataProduct["Product"])
+trainDataProduct = list(dataProduct["PRODUCTID"])
 for x in range(len(trainDataProduct)):
     trainDataProduct[x] = "PRODUCTNUMBER" + trainDataProduct[x]
 
 trainData = trainDataPassword + trainDataProduct + trainDataUsername
 random.shuffle(trainData)
+
+print(trainData[:10], len(trainData))
 
 for line in trainData:
     cleanTemp, count = split(line)
