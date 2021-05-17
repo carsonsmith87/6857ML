@@ -59,13 +59,16 @@ trainDataClean = []
 #
 #trainData = trainDataPassword + trainDataProduct + trainDataUsername
 
-trainData = list(pd.read_csv("encrypted_data/CaesarCipher.csv")["Caesar"])
+#trainData = list(pd.read_csv("encrypted_data/RawData.csv")["Raw"])
 
-#trainData = list(pd.read_csv("encrypted_data/VernamCipher7.csv")["Vernam7"])
+#trainData = list(pd.read_csv("encrypted_data/CaesarCipher.csv")["Caesar"])
+
+trainData = list(pd.read_csv("encrypted_data/VernamCipher7.csv")["Vernam7"])
 #
 #trainData = list(pd.read_csv("encrypted_data/VernamCipher10.csv")["Vernam10"])
 
-
+passKey = trainData[0][0:5].lower()
+passUser = trainData[-1][0:5].lower()
 
 random.shuffle(trainData)
 
@@ -83,6 +86,7 @@ tokenizer.fit_on_texts(trainDataClean)
 seq = tokenizer.texts_to_sequences(trainDataClean)
 wordInd = tokenizer.word_index
 
+
 occur = {}
 for x in seq:
     for y in x:
@@ -93,7 +97,7 @@ for x in seq:
 
 k = Counter(occur)
 
-high = k.most_common(5)
+high = k.most_common(6)
 print(high)
 
 highL = [x[0] for x in high]
@@ -115,7 +119,7 @@ dataTrain = pad_sequences(seqReal, padding = "post", maxlen = MAX, truncating = 
 
 som = MiniSom(3, 1, MAX, sigma=.98, learning_rate=0.56)
 
-som.train(dataTrain, 1000000)
+som.train(dataTrain, 100000)
 
 
 win_map = som.win_map(dataTrain)
@@ -142,9 +146,9 @@ som_shape = (1, 3)
 winner_coordinates = [[0,0,0],[0,0,0],[0,0,0]]
 for x in dataTrain:
     winningCluster = som.winner(x)[0]
-    if wordInd["jummq"] in x:
+    if wordInd[passKey] in x:
         winner_coordinates[winningCluster][0] += 1
-    elif wordInd["jlixo"] in x:
+    elif wordInd[passUser] in x:
         winner_coordinates[winningCluster][1] += 1
     else:
         winner_coordinates[winningCluster][2] += 1
