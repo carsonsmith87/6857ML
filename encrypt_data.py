@@ -33,14 +33,14 @@ caesar_cipher = CaesarCipher()
 vernam_cipher_7 = OTP(7)
 vernam_cipher_10 = OTP(10)
 
-#caesar_data = get_data(caesar_cipher)
-#vernam_7_data = get_data(vernam_cipher_7)
-#vernam_10_data = get_data(vernam_cipher_10)
+caesar_data = get_data(caesar_cipher)
+vernam_7_data = get_data(vernam_cipher_7)
+vernam_10_data = get_data(vernam_cipher_10)
 
 #print(len(caesar_data), len(vernam_7_data), len(vernam_10_data))
 
-#pd.DataFrame({'Caesar':caesar_data}).to_csv('CaesarCipher.csv', index=False)
-#pd.DataFrame({'Vernam7':vernam_7_data}).to_csv('VernamCipher7.csv', index=False)
-#pd.DataFrame({'Vernam10':vernam_10_data}).to_csv('VernamCipher10.csv', index=False)
+pd.DataFrame({'Caesar':caesar_data}).to_csv('encrypted_data/CaesarCipher.csv', index=False)
+pd.DataFrame({'Vernam7':vernam_7_data}).to_csv('encrypted_data/VernamCipher7.csv', index=False)
+pd.DataFrame({'Vernam10':vernam_10_data}).to_csv('encrypted_data/VernamCipher10.csv', index=False)
 
 
