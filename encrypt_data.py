@@ -1,5 +1,6 @@
 import csv
 from encryption import *
+import pandas as pd
 
 
 #constants
@@ -8,28 +9,38 @@ NUM_DATA = 500
 file_paths = ['data/passwords.csv', 'data/products.csv', 'data/usernames.csv']
 
 
+#data = pd.read_csv("data/Passwords.csv").sample(10)
+#print(data.columns[0])
+#print(list(data["PASSWORD"]))
+
 #Read CSV files.
 def get_data(enc_class = None):
-    data = []
+    result = []
+    
     for file in file_paths:
-        with open(file) as csv_file:
-            csv_reader = csv.reader(csv_file, delimiter=',')
-            line_count = 0
-            for row in csv_reader:
-                if line_count == 0:
-                    col_name = row[0]
-                    line_count += 1
-                elif line_count <= NUM_DATA:
-                    raw_data = col_name + row[0]
-                    if enc_class == None:
-                        data.append(raw_data)
-                    else:
-                        data.append(enc_class.encrypt(raw_data))
-                    line_count += 1
-                else:
-                    break
-    if enc_class == None:
-        p,w,n = "PASSW", "USERN", "PRODU"
-    else:
-        p,w,n = enc_class.encrypt("PASSW"), enc_class.encrypt("USERN"), enc_class.encrypt("PRODU")
-    return data,p,w,n
+        data = pd.read_csv(file).sample(NUM_DATA)
+        col = data.columns[0]
+        data = list(data[col])
+        data = [col + text for text in data]
+        if enc_class != None:
+            data = [enc_class.encrypt(text) for text in data]
+        result += data
+        
+    return result
+
+
+caesar_cipher = CaesarCipher()
+vernam_cipher_7 = OTP(7)
+vernam_cipher_10 = OTP(10)
+
+#caesar_data = get_data(caesar_cipher)
+#vernam_7_data = get_data(vernam_cipher_7)
+#vernam_10_data = get_data(vernam_cipher_10)
+
+#print(len(caesar_data), len(vernam_7_data), len(vernam_10_data))
+
+#pd.DataFrame({'Caesar':caesar_data}).to_csv('CaesarCipher.csv', index=False)
+#pd.DataFrame({'Vernam7':vernam_7_data}).to_csv('VernamCipher7.csv', index=False)
+#pd.DataFrame({'Vernam10':vernam_10_data}).to_csv('VernamCipher10.csv', index=False)
+
+

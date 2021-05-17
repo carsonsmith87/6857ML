@@ -19,8 +19,10 @@ def generate_conversion_dicts(is_alphabet = False):
         num_to_char = {index: letter for index, letter in enumerate(printable[:mod])}
         num_to_char[PRINTS_LEN] = '-'
         num_to_char[PRINTS_LEN+1] = '_'
+        #num_to_char[PRINTS_LEN+2] = ' '
         char_to_num['-'] = PRINTS_LEN
         char_to_num['_'] = PRINTS_LEN+1
+        #char_to_num[' '] = PRINTS_LEN+2
         mod += 2
 
     return mod, char_to_num, num_to_char
