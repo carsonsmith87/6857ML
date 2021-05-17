@@ -28,4 +28,8 @@ def get_data(enc_class = None):
                     line_count += 1
                 else:
                     break
-    return data
+    if enc_class == None:
+        p,w,n = "PASSW", "USERN", "PRODU"
+    else:
+        p,w,n = enc_class.encrypt("PASSW"), enc_class.encrypt("USERN"), enc_class.encrypt("PRODU")
+    return data,p,w,n

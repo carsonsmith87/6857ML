@@ -85,7 +85,7 @@ for x in seq:
 k = Counter(occur)
 
 # Finding 3 highest values
-high = k.most_common(8)
+high = k.most_common(7)
 print(high)
 
 highL = [x[0] for x in high]
@@ -107,7 +107,7 @@ dataTrain = pad_sequences(seqReal, padding = "post", maxlen = MAX, truncating = 
 
 som = MiniSom(3, 1, MAX, sigma=.98, learning_rate=0.56)
 
-som.train(dataTrain, 1000000)
+som.train(dataTrain, 10000000)
 
 
 win_map = som.win_map(dataTrain)

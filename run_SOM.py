@@ -15,9 +15,11 @@ caesar_cipher = CaesarCipher()
 vernam_cipher = OTP(KEY_LEN)
 
 #generate data
-raw_data = get_data()
-caesar_data = get_data(caesar_cipher)
-vernam_data = get_data(vernam_cipher)
+raw_data,up,uw,un = get_data()
+caesar_data, cp,cw,cn = get_data(caesar_cipher)
+vernam_data, vp, vw, vn = get_data(vernam_cipher)
+
+print(cp, cw, cn)
 
 #print("Raw data: \n", raw_data)
 #print("Caesar data: \n", caesar_data)
@@ -81,7 +83,7 @@ def run_model(trainData):
     k = Counter(occur)
 
     # Finding 3 highest values
-    high = k.most_common(8)
+    high = k.most_common(5)
     print(high)
 
     highL = [x[0] for x in high]
@@ -125,22 +127,21 @@ def run_model(trainData):
     plt.colorbar()
     plt.show()
 
-    '''
+
     som_shape = (1, 3)
     winner_coordinates = [[0,0,0],[0,0,0],[0,0,0]]
     for x in dataTrain:
         winningCluster = som.winner(x)[0]
-        if wordInd["passw"] in x:
+        if wordInd[up.lower()] in x:
             winner_coordinates[winningCluster][0] += 1
-        elif wordInd["usern"] in x:
+        elif wordInd[un.lower()] in x:
             winner_coordinates[winningCluster][1] += 1
         else:
             winner_coordinates[winningCluster][2] += 1
 
     print(winner_coordinates)
-    '''
 
-#run_model(raw_data)
+run_model(raw_data)
 #run_model(caesar_data)
 #run_model(vernam_data)
 
