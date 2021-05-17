@@ -39,27 +39,27 @@ def getAllText(fullData):
 trainDataClean = []
 
 
-dataPassword = pd.read_csv("data/Passwords.csv").sample(n = 500)
+#dataPassword = pd.read_csv("data/Passwords.csv").sample(n = 500)
+#
+#trainDataPassword = list(dataPassword["PASSWORD"])
+#for x in range(len(trainDataPassword)):
+#    trainDataPassword[x] = "PASSWORD" + trainDataPassword[x]
+#
+#dataUsername = pd.read_csv("data/Usernames.csv").sample(n = 500)
+#
+#trainDataUsername = list(dataUsername["USERNAME"])
+#for x in range(len(trainDataUsername)):
+#    trainDataUsername[x] = "USERNAME" + trainDataUsername[x]
+#
+#
+#dataProduct = pd.read_csv("data/Products.csv").sample(n = 500)
+#trainDataProduct = list(dataProduct["PRODUCTID"])
+#for x in range(len(trainDataProduct)):
+#    trainDataProduct[x] = "PRODUCTNUMBER" + trainDataProduct[x]
+#
+#trainData = trainDataPassword + trainDataProduct + trainDataUsername
 
-trainDataPassword = list(dataPassword["PASSWORD"])
-for x in range(len(trainDataPassword)):
-    trainDataPassword[x] = "PASSWORD" + trainDataPassword[x]
-
-dataUsername = pd.read_csv("data/Usernames.csv").sample(n = 500)
-
-trainDataUsername = list(dataUsername["USERNAME"])
-for x in range(len(trainDataUsername)):
-    trainDataUsername[x] = "USERNAME" + trainDataUsername[x]
-
-
-dataProduct = pd.read_csv("data/Products.csv").sample(n = 500)
-trainDataProduct = list(dataProduct["PRODUCTID"])
-for x in range(len(trainDataProduct)):
-    trainDataProduct[x] = "PRODUCTNUMBER" + trainDataProduct[x]
-
-trainData = trainDataPassword + trainDataProduct + trainDataUsername
-
-#trainData = list(pd.read_csv("encrypted_data/CaesarCipher.csv")["Caesar"])
+trainData = list(pd.read_csv("encrypted_data/CaesarCipher.csv")["Caesar"])
 
 #trainData = list(pd.read_csv("encrypted_data/VernamCipher7.csv")["Vernam7"])
 #
@@ -94,7 +94,7 @@ for x in seq:
 k = Counter(occur)
 
 # Finding 3 highest values
-high = k.most_common(4)
+high = k.most_common(6)
 print(high)
 
 highL = [x[0] for x in high]
@@ -116,7 +116,7 @@ dataTrain = pad_sequences(seqReal, padding = "post", maxlen = MAX, truncating = 
 
 som = MiniSom(3, 1, MAX, sigma=.98, learning_rate=0.56)
 
-som.train(dataTrain, 1000000)
+som.train(dataTrain, 100000)
 
 
 win_map = som.win_map(dataTrain)
