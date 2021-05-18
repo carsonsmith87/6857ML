@@ -42,9 +42,23 @@ class CaesarCipher:
 
         result = [self.num_to_char[(self.char_to_num[char] + self.shift) % self.mod] for char in text]
         return ''.join(result)
-            
 
-class OTP:
+    def decrypt(self, text):
+
+        result = [self.num_to_char[(self.char_to_num[char] - self.shift) % self.mod] for char in text]
+        return ''.join(result)
+
+    def is_elgamal(self):
+        return False
+
+caesar_cipher = CaesarCipher()
+for i in range(10):
+    enc = caesar_cipher.encrypt('azazazazazazazazlalalamimimfafadadnksljfnvrlhtbnvjgtkrrvcdnltgvmqpkdjvmf')
+    if caesar_cipher.decrypt(enc) != 'azazazazazazazazlalalamimimfafadadnksljfnvrlhtbnvjgtkrrvcdnltgvmqpkdjvmf':
+        print('boo')
+
+
+class VernamCipher:
 
     def __init__(self, length):
 
@@ -65,3 +79,67 @@ class OTP:
         enc_nums = [(self.char_to_num[text[i]] + self.char_to_num[key_mod[i]]) % self.mod for i in range(len(text))]
         result = [self.num_to_char[num] for num in enc_nums]
         return ''.join(result)
+
+    def decrypt(self, text):
+
+        key_mod = self.get_key_mod(self.secret_key, len(text))
+        dec_nums = [(self.char_to_num[text[i]] - self.char_to_num[key_mod[i]]) % self.mod for i in range(len(text))]
+        result = [self.num_to_char[num] for num in dec_nums]
+        return ''.join(result)
+
+    def is_elgamal(self):
+        return False
+
+vernam_cipher = VernamCipher(7)
+for i in range(10):
+    enc = vernam_cipher.encrypt('azazazazazazazazlalalamimimfafadadnksljfnvrlhtbnvjgtkrrvcdnltgvmqpkdjvmf')
+    if vernam_cipher.decrypt(enc) != 'azazazazazazazazlalalamimimfafadadnksljfnvrlhtbnvjgtkrrvcdnltgvmqpkdjvmf':
+        print('boo')
+
+
+class PermuteThenVernam(VernamCipher):
+
+    def __init__(self, length):
+
+        self.vernam = VernamCipher(length)
+
+    def encrypt(self, text):
+
+        permute = random.randint(0, len(text)-1)
+        new_text = text[permute:]+text[:permute]
+        return self.vernam.encrypt(new_text)
+
+    def is_elgamal(self):
+        return False
+
+
+class VernamThenPermute(VernamCipher):
+
+    def __init__(self, length):
+
+        self.vernam = VernamCipher(length)
+
+    def encrypt(self, text):
+
+        enc_text = self.vernam.encrypt(text)
+        permute = random.randint(0, len(enc_text)-1)
+        return enc_text[permute:]+enc_text[:permute] 
+
+    def is_elgamal(self):
+        return False
+
+
+#text = 'lemon'
+#for i in range(10):
+#    permute = random.randint(0, len(text)-1)
+#    new_text = text[permute:]+text[:permute]
+#    print(new_text)
+
+
+
+
+
+
+
+
+    
