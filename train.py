@@ -145,11 +145,11 @@ som.train(dataTrain, 100000)
 
 import matplotlib.pyplot as plt
 
-#plt.figure(figsize=(7, 7))
-#frequencies = som.activation_response(dataTrain)
-#plt.pcolor(frequencies.T, cmap='Blues')
-#plt.colorbar()
-#plt.show()
+plt.figure(figsize=(7, 7))
+frequencies = som.activation_response(dataTrain)
+plt.pcolor(frequencies.T, cmap='Blues')
+plt.colorbar()
+plt.show()
 
 som_shape = (1, 3)
 winner_coordinates = [[0,0,0],[0,0,0],[0,0,0]]
@@ -174,7 +174,7 @@ cluster_index = np.ravel_multi_index(winner_coordinates_pic, (3,1))
 # plotting the clusters using the first 2 dimentions of the data
 for c in np.unique(cluster_index):
     plt.scatter(dataTrain[cluster_index == c, 0],
-                dataTrain[cluster_index == c, 1], label='cluster='+str(c), alpha=.7)
+                dataTrain[cluster_index == c, 8], label='cluster='+str(c), alpha=.7)
 
 # plotting centroids
 for centroid in som.get_weights():
