@@ -63,9 +63,9 @@ trainDataClean = []
 
 #trainData = list(pd.read_csv("encrypted_data/CaesarCipher.csv")["Caesar"])
 
-trainData = list(pd.read_csv("encrypted_data/VernamCipher7.csv")["Vernam7"])
+#trainData = list(pd.read_csv("encrypted_data/VernamCipher7.csv")["Vernam7"])
 #
-#trainData = list(pd.read_csv("encrypted_data/VernamCipher10.csv")["Vernam10"])
+trainData = list(pd.read_csv("encrypted_data/VernamCipher10.csv")["Vernam10"])
 
 passKey = trainData[0][0:5].lower()
 passUser = trainData[-1][0:5].lower()
